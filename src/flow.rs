@@ -11,7 +11,7 @@ pub fn analyse<Graph, Node, Analyser>(
 ) -> HashMap<NodeIndex, FlowResult<Analyser::State>>
 where
     Graph: CFG<Node>,
-    Analyser: Analysis,
+    Analyser: Analysis<NodeWeight = Node>,
 {
     let mut results: HashMap<NodeIndex, FlowResult<Analyser::State>> = HashMap::new();
     let mut queue = HashSet::new();

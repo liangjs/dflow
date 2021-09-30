@@ -22,16 +22,17 @@ where
 
 pub trait Analysis {
     type State: FlowState;
+    type NodeWeight;
 
     fn entry_influx(&self) -> Self::State;
 
     fn flow_through<NodeRef>(&self, node: NodeRef, influx: &Self::State) -> Self::State
     where
-        NodeRef: graph_visit::NodeRef;
+        NodeRef: graph_visit::NodeRef<Weight = Self::NodeWeight>;
 
     fn init_outflux<NodeRef>(&self, #[allow(unused_variables)] node: NodeRef) -> Self::State
     where
-        NodeRef: graph_visit::NodeRef,
+        NodeRef: graph_visit::NodeRef<Weight = Self::NodeWeight>,
     {
         Self::State::empty()
     }
